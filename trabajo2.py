@@ -92,25 +92,40 @@ def main():
         i += 1
 
     # --- 6) Habitaciones sin reservas por tipo ---
+    # --- 6) Habitaciones sin reservas por tipo ---
     print("\n=== (6) Habitaciones sin reservas por tipo ===")
-    i = 0
-    while i < Sucursal:
+    for i in range(Sucursal):   # recorre los tipos de habitación
         print(TIPOS[i] + ":")
-        j = 0
         sin_reserva = False
-        while j < Vendedor:
-            if m[j][i] == 0:
+
+        for j in range(Vendedor):   # recorre las habitaciones de ese tipo
+            if m[j][i] == 0:        # si no hay reserva en esa posición
                 print("  Habitación " + str(j+1))
                 sin_reserva = True
-            j += 1
-        if not sin_reserva:
+
+        if not sin_reserva:         # si todas tenían reservas
             print("  Todas las habitaciones reservadas")
-        i += 1
+
 
     # --- 7) Venta total ---
     total_periodo = sumarMatriz(m, Vendedor)
     print("\n=== (7) Venta total del período ===")
     print("Total: $" + str(int(total_periodo)).rjust(10))
+
+    # --- 8) Porcentaje de habitaciones no reservadas ---
+    porc, libres, total = porcentaje_no_reservadas(m, Vendedor, Sucursal)
+    print("\n=== (8) Porcentaje de habitaciones no reservadas ===")
+    print(f"Libres: {libres} de {total} ({porc:.2f}%)")
+
+    # --- 9) Número total de reservas ---
+    total_reservas = 0
+    for i in range(Vendedor):
+        for j in range(Sucursal):
+            if m[i][j] > 0:
+                total_reservas += 1
+    print(f"\nNúmero total de reservas realizadas: {total_reservas}")
+
+
 
 
 def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIONES, DIAS_SEPTIEMBRE, hoy_dia):
@@ -177,7 +192,7 @@ def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIO
                     matriz[fila_libre][col] = total
                     hubo_venta = True
                     print("ℹ️ Por el momento no contamos con cargos extras.")
-                    print("✅ " + TIPOS[col] + " (Piso " + str(PISOS[col]) + ") | Hab " + str(fila_libre+1) + " | Día " + str(dia_reserva) + " por " + str(dias_estadia) + " días | Total $" + str(int(total)))
+                    print("Reserva realizada con exito!✅ A continuacion le dejamos los datos de su reserva= " + TIPOS[col] + " (Piso " + str(PISOS[col]) + ") | Hab " + str(fila_libre+1) + " | Día " + str(dia_reserva) + " por " + str(dias_estadia) + " días | Total $" + str(int(total)))
 
         tipo = int(input("\nTipo (1..3) o -99 para terminar: "))
 
@@ -221,6 +236,19 @@ def sumaMatrizXCOL(matriz, lista, cantidadcolumnas, cantidadfilas):
     for i in range(cantidadcolumnas):
         for j in range(cantidadfilas):
             lista[i]+=matriz[j][i]
+
+def porcentaje_no_reservadas(matriz, cantidadFilas, cantidadColumnas):
+    total = cantidadFilas * cantidadColumnas
+    libres = 0
+
+    for i in range(cantidadFilas):
+        for j in range(cantidadColumnas):
+            if matriz[i][j] == 0:
+                libres += 1
+
+    porcentaje = (libres / total) * 100
+    return porcentaje, libres, total
+
 
 
 # Ejecutar
