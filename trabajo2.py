@@ -161,16 +161,15 @@ def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIO
                 if dia_reserva + dias_estadia - 1 > DIAS_SEPTIEMBRE:
                     print("❌ La estadía se pasa de septiembre. Máximo permitido: " + str(DIAS_SEPTIEMBRE - dia_reserva + 1) + " días")
                 else:
-                    col = tipo - 1
+                    col = tipo - 1  #-1 para asi ir en 0,1,2 y no en 1,2,3
                     # mostrar habitaciones libres
                     print("Habitaciones disponibles: ")
-                    i = 0
                     hab_disponibles = []
-                    while i < HABITACIONES:
+                    for i in range(HABITACIONES):
                         if matriz[i][col] == 0:
                             hab_disponibles.append(i)
                             print("  Habitación " + str(i+1))
-                        i += 1
+
 
                     # elegir habitación
                     eleccion = input("Ingrese número de habitación o 'A' para aleatoria: ").strip().upper()
