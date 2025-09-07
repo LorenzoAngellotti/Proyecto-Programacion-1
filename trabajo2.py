@@ -206,15 +206,15 @@ def sumarMatriz(matriz, cantidadFilas):
 
 def listado_puntoA(matriz, cantidadfilas, cantidadcolumnas):
     print("\nHABITACION/TIPO \t 01\t\t 02\t\t 03")
-    i = 0
-    while i < cantidadfilas:
+
+    for i in range(cantidadfilas):  # recorre las filas (habitaciones)
         print(str(i+1).rjust(2), end="\t\t   ")
-        j = 0
-        while j < cantidadcolumnas:
+
+        for j in range(cantidadcolumnas):  # recorre las columnas (tipos)
             print("$" + str(int(matriz[i][j])).rjust(10), end="\t")
-            j += 1
-        print()
-        i += 1
+
+        print()  # salto de línea al terminar cada fila
+
 
 
 def sumaMatrizXCOL(matriz, lista, cantidadcolumnas, cantidadfilas):
