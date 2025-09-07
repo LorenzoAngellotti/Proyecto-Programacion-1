@@ -186,17 +186,13 @@ def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIO
 
 def mostrar_matriz(matriz):
     print("\nMatriz (filas=Hab 1..5, cols=Tipos 1..3):")
-    i = 0
-    while i < len(matriz):
-        print("Habitación " + str(i+1) + ": " + str(matriz[i]))
-        i += 1
+    for i in range(len(matriz)):  
+        print(f"Vendedor {i+1}: {matriz[i]}")
 
 
 def SumaMatrizxFila(matriz, lista, cantidadFilas):
-    i = 0
-    while i < cantidadFilas:
-        lista[i] = sum(matriz[i])
-        i += 1
+    for i in range(cantidadFilas):
+        lista[i]=sum(matriz[i])
 
 
 def sumarMatriz(matriz, cantidadFilas):
@@ -222,15 +218,9 @@ def listado_puntoA(matriz, cantidadfilas, cantidadcolumnas):
 
 
 def sumaMatrizXCOL(matriz, lista, cantidadcolumnas, cantidadfilas):
-    i = 0
-    while i < cantidadcolumnas:
-        total_col = 0.0
-        j = 0
-        while j < cantidadfilas:
-            total_col += matriz[j][i]
-            j += 1
-        lista[i] = total_col
-        i += 1
+    for i in range(cantidadcolumnas):
+        for j in range(cantidadfilas):
+            lista[i]+=matriz[j][i]
 
 
 # Ejecutar
