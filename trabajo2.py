@@ -31,7 +31,7 @@ def main():
     if not hubo_venta:
         print("No se registraron reservas.")
         return
-
+    print('---ESTADISTICAS---')
     # --- 1) Mostrar matriz ---
     mostrar_matriz(m)
     print("\n=== (1) Listado matriz ===")
@@ -40,56 +40,55 @@ def main():
     # --- 2) Total por habitación ---
     SumaMatrizxFila(m, ventaXHabitacion, Vendedor)
     print("\n=== (2) Total por habitación ===")
-    i = 0
-    while i < len(ventaXHabitacion):
+    for i in range(len(ventaXHabitacion)):
         print("Habitación ".ljust(12) + str(i+1).rjust(2) + ": $" + str(int(ventaXHabitacion[i])).rjust(10))
-        i += 1
+
 
     # --- 3) Total por tipo ---
     sumaMatrizXCOL(m, VTAxTIPO, Sucursal, Vendedor)
     print("\n=== (3) Total por tipo ===")
     print("Tipo".ljust(10) + "Total $".rjust(12))
-    i = 0
-    while i < len(VTAxTIPO):
+    for i in range(len(VTAxTIPO)):
         tipo_str = str(i+1).rjust(2) + " (" + TIPOS[i].ljust(8) + ")"
         total_str = "$" + str(int(VTAxTIPO[i])).rjust(10)
         print(tipo_str + "\t" + total_str)
-        i += 1
+
 
     # --- 4) Tipo/s con mayor venta ---
     ventaMaxima = max(VTAxTIPO)
+    
     print("\n=== (4) Tipo/s con mayor venta ===")
     print("Mayor venta: $" + str(int(ventaMaxima)).rjust(10))
     mejores_tipos = []
-    i = 0
-    while i < len(VTAxTIPO):
+    for i in range(len(VTAxTIPO)):
         if VTAxTIPO[i] == ventaMaxima:
             mejores_tipos.append(i+1)
-        i += 1
     print("Tipo/s: " + str(mejores_tipos))
+
 
     # --- 4b) Tipo/s con menor venta ---
     ventaMinima = min(VTAxTIPO)
     print("\n=== (4b) Tipo/s con menor venta ===")
     print("Menor venta: $" + str(int(ventaMinima)).rjust(10))
+
     peores_tipos = []
-    i = 0
-    while i < len(VTAxTIPO):
+    for i in range(len(VTAxTIPO)):
         if VTAxTIPO[i] == ventaMinima:
             peores_tipos.append(i+1)
-        i += 1
+
     print("Tipo/s: " + str(peores_tipos))
+
 
     # --- 5) Promedio por habitación por tipo ---
     print("\n=== (5) Promedio por habitación por tipo ===")
     print("Tipo".ljust(10) + "Promedio $".rjust(12))
-    i = 0
-    while i < len(VTAxTIPO):
+
+    for i in range(len(VTAxTIPO)):
         prom = VTAxTIPO[i] / HABITACIONES
         tipo_str = str(i+1).rjust(2) + " (" + TIPOS[i].ljust(8) + ")"
         total_str = "$" + str(int(prom)).rjust(10)
         print(tipo_str + "\t" + total_str)
-        i += 1
+
 
     # --- 6) Habitaciones sin reservas por tipo ---
     # --- 6) Habitaciones sin reservas por tipo ---
@@ -124,6 +123,19 @@ def main():
             if m[i][j] > 0:
                 total_reservas += 1
     print(f"\nNúmero total de reservas realizadas: {total_reservas}")
+
+        # --- 10) Reservas ordenadas por monto ---
+    print("\n=== (10) Reservas ordenadas por monto ===")
+    reservas = []
+    for i in range(len(m)):
+        for j in range(len(m[0])):
+            if m[i][j] > 0:
+                reservas.append((i+1, TIPOS[j], m[i][j]))
+
+    reservas_ordenadas = sorted(reservas, key=lambda x: x[2], reverse=True)
+    for hab, tipo, monto in reservas_ordenadas:
+        print(f"Hab {hab} - {tipo}: ${int(monto)}")
+
 
 
 
