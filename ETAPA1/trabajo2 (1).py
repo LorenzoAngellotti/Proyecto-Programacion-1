@@ -1,5 +1,5 @@
 """
-SISTEMA DE RESERVAS DE HOTEL - VERSIÓN PRINCIPIANTE
+SISTEMA DE RESERVAS DE HOTEL
 Alcance: solo reservas en septiembre (30 días).
 Anticipación mínima: 7 días.
 Se valida restando directamente números de día (sin librerías).
@@ -130,4 +130,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
