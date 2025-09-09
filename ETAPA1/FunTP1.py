@@ -91,7 +91,7 @@ def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIO
 def mostrar_matriz(matriz):
     print("\nMatriz (filas=Hab 1..5, cols=Tipos 1..3):")
     for i in range(len(matriz)):  
-        print(f"Vendedor {i+1}: {matriz[i]}")
+        print(f"Habitacion {i+1}: {matriz[i]}")
 
 
 def SumaMatrizxFila(matriz, lista, cantidadFilas):
@@ -135,4 +135,5 @@ def porcentaje_no_reservadas(matriz, cantidadFilas, cantidadColumnas):
                 libres += 1
 
     porcentaje = (libres / total) * 100
+
     return porcentaje, libres, total
