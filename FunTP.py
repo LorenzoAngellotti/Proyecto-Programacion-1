@@ -56,16 +56,21 @@ def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIO
                             fila_libre = hab_disponibles[fila_libre]
 
                     coch = input("¿Cochera? (SI/NO): ").strip().upper()
-                    coch_flag = 1 if coch == "SI" else 0
+                    if coch == "SI":
+                        coch_flag = 1
+                    else:
+                        coch_flag = 0
                     base = TARIFAS_BASE[col]
-                    cochera_costo = COCHERA_VALOR if coch_flag == 1 else 0
+                    if coch_flag == 1:
+                        cochera_costo = COCHERA_VALOR
+                    else:
+                        cochera_costo = 0
                     total = (base + cochera_costo) * dias_estadia
                     matriz[fila_libre][col] = total
-                    hubo_venta = True
-                    print("ℹ️ Por el momento no contamos con cargos extras.")
+                    hubo_venta = True 
                     print("Reserva realizada con exito!✅ A continuacion le dejamos los datos de su reserva= " + TIPOS[col] + " (Piso " + str(PISOS[col]) + ") | Hab " + str(fila_libre+1) + " | Día " + str(dia_reserva) + " por " + str(dias_estadia) + " días | Total $" + str(int(total)))
 
-        tipo = int(input("\nTipo (1..3) o -99 para terminar: "))
+        tipo = int(input("\n Si desea continuar con otra reserva seleccione el tipo de habitacion (1/2/3) o -99 para terminar: "))
 
     return hubo_venta
 
@@ -73,7 +78,7 @@ def cargar_importes(matriz, TIPOS, PISOS, TARIFAS_BASE, COCHERA_VALOR, HABITACIO
 def mostrar_matriz(matriz):
     print("\nMatriz (filas=Hab 1..5, cols=Tipos 1..3):")
     for i in range(len(matriz)):  
-        print(f"Vendedor {i+1}: {matriz[i]}")
+        print(f"Habitacion {i+1}: {matriz[i]}")
 
 
 def SumaMatrizxFila(matriz, lista, cantidadFilas):
@@ -82,12 +87,11 @@ def SumaMatrizxFila(matriz, lista, cantidadFilas):
 
 
 def sumarMatriz(matriz, cantidadFilas):
-    resultado = 0.0
-    f = 0
-    while f < cantidadFilas:
+    resultado = 0
+    for f in range(cantidadFilas):
         resultado += sum(matriz[f])
-        f += 1
     return resultado
+
 
 
 def listado_puntoA(matriz, cantidadfilas, cantidadcolumnas):
@@ -100,7 +104,6 @@ def listado_puntoA(matriz, cantidadfilas, cantidadcolumnas):
             print("$" + str(int(matriz[i][j])).rjust(10), end="\t")
 
         print()  # salto de línea al terminar cada fila
-
 
 
 def sumaMatrizXCOL(matriz, lista, cantidadcolumnas, cantidadfilas):
